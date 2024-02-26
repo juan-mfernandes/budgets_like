@@ -11,16 +11,16 @@ class Validation {
 
     public static function validateDate($date) {
         if (!preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $date)) {
-            return false;
+            return 0;
         }
 
         list($month, $day, $year) = explode('-', $date);
 
         if (!checkdate($month, $day, $year)) {
-            return false;
+            return 0;
         }
         
-        return true;
+        return 1;
     }
 
     public static function validateProduct(Product $product) {
@@ -44,7 +44,7 @@ class Validation {
 
         $products = $budget->getProducts();
         foreach ($products as $product) {
-            self::validateBudget($product);
+            self::validateProduct($product);
         }
     }
 
