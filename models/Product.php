@@ -4,6 +4,7 @@ class Product {
 
     private string $name;
     private float $value;
+    private int $quantity;
 
 
     public function setName($name): void {
