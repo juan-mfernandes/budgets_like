@@ -27,7 +27,15 @@
 // echo 'Produtos Orçados: ' . '<br>Total da conta: ' . 'R$' . budget1->calculeTotal();
 // var_dump(budget1->getProducts());
 ?>
+<?php 
+session_start(); 
+require_once("./includes/calculeTotals.php");
 
+if(isset($_SESSION["products"])) {
+    $totalItems = calculeTotalItems($_SESSION["products"]);
+    $totalValue = calculeTotalValue($_SESSION["products"]);
+};
+?>
 
 <!DOCTYPE html> 
 <html lang="pt-br">
@@ -48,7 +56,7 @@
   </div>
 </nav>
     <main class="container">
-        <form id="form-budget" action="./src/budgetRepository.php" method="post" >
+        <form id="form-budget" action="./src/add.php" method="post" >
             <div class="form-group row mt-5">
                 <div class="col-5">
                     <label for="nome_cliente" class="form-label mb-0">Nome do Cliente</label>
@@ -61,7 +69,6 @@
                         minlength="3"
                         placeholder="Nome"
                         autocomplete="off"
-                        oninvalid="this.setCustomValidity('Por favor, preencha este campo vazio.')"
                     />
                 </div>                
             </div>
@@ -75,7 +82,6 @@
                     required
                     autocomplete="off"
                     min="<?php echo date('Y-m-d'); ?>"
-                    oninvalid="this.setCustomValidity('Insira uma data valida.')"
                 />
             </div>
             <div class="form-group row">
@@ -128,25 +134,32 @@
                 <button type="submit" id="addButton" class="btn btn-success col-2 mt-4 mb-5">Adicionar</button>
             </div>
         </form>
-        <div id="rf" class="table-responsive">
+        <div class="table-responsive">
             <table id="products-table" class="table mt-2">
                 <thead>
                     <tr>
-                        <th scope="col">Lista de Produtos</th>
+                        <th scope="col">Nome do Produto</th>
                         <th scope="col">Quantidade</th>
                         <th scope="col">Valor</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!--function addProductTable-->
+                    <?php foreach ($_SESSION["products"] as $product) : ?>
+                        <tr>
+                            <td><?= $product["name"] ?></td>
+                            <td><?= $product["quantity"] ?></td>
+                            <td><?= $product["value"] ?></td>
+                        </tr>
+                        <?php endforeach; ?>
                 </tbody>
             </table>
-            <div id="totalItems"></div>
-            <div id="totalValue"></div>
+            <div>Total de itens: <?php echo $totalItems ?></div>
+            <div>Valor total: <?php echo $totalValue ?></div>
         </div>
         <form action="./src/budgetRepository.php" method="post">
             <button type="submit" class="btn btn-success mt-5 col-2 float-end">Salvar orçamento</button>
         </form>
+        <a href="./src/logout.php">Sair</a>
     </main>
 </body>
 </html>
