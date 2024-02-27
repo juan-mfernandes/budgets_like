@@ -2,6 +2,7 @@
 
 class Validation {
 
+    //client validate
     public static function validateClient(Client $client) {
         $name = $client->getName();
         if(strlen($name) < 3 || !$name) {
@@ -9,6 +10,7 @@ class Validation {
         }
     }
 
+    //data validate
     public static function validateDate($date) {
         if (!preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $date)) {
             return 0;
@@ -23,6 +25,7 @@ class Validation {
         return 1;
     }
 
+    //product validate
     public static function validateProduct(Product $product) {
         $name = $product->getName();
         if(strlen($name) < 3) {
@@ -35,6 +38,7 @@ class Validation {
         }
     }
 
+    //budget validate
     public static function validateBudget(Budget $budget) {
         $client = $budget->getClient();
         self::validateClient($client);
