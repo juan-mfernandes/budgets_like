@@ -35,7 +35,7 @@ function addProduct() {
         let nameCell = tableRows[i].cells[0];
         console.log(nameCell);
         if (nameCell.textContent === productName) {
-            alert("Este produto ja foi cadastrado");
+            alert("Este produto ja foi cadastrado!");
             return;
         };
     };
@@ -61,4 +61,4 @@ function calculeTotal() {
 };
 
 //event listener to add new item
-document.getElementById("addButton").addEventListener('click', addProduct, calculeTotal);
+// document.getElementById("addButton").addEventListener('click', addProduct, calculeTotal);
