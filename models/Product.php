@@ -9,7 +9,7 @@ class Product {
 
     public function setName($name): void {
        
-       if(strlen($name) <= 2){
+       if(strlen($name) <= 2 || preg_match('/^[0-9]+$/', $name)){
             throw new InvalidArgumentException("Nome inválido!");
         }
         $this->name = $name;
