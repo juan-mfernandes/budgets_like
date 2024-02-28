@@ -7,19 +7,12 @@ class Client {
         if (strlen($name) <= 2) {
             throw new InvalidArgumentException("O nome precisa ter ao menos 3 caracteres.");
         }
+        if (preg_match('/[0-9]/', $name) == true) {
+            throw new InvalidArgumentException("O nome não pode conter números.");
+        }
+
         $this->name = $name;
     }
-
-    // public function setPhone($phone): void {
-    //     if(!ctype_digit($phone) || strlen($phone) < 6) {
-    //         throw new InvalidArgumentException("Numero de telefone invalido.");
-    //     }
-    //     $this->phone = $phone;
-    // }
-
-    // public function getPhone(): string {
-    //     return $this->phone;
-    // }
 
     public function getName(): string {
         return $this->name;
